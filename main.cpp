@@ -1,25 +1,31 @@
-#include "iostream"
+#include <iostream>
 
-int main(int argc, char* argv[]){
-    if(argc > 2 and argc < 4){
-        int n = std::stoi(argv[1]);
-        int k = std::stoi(argv[2]);
-        if (k>10000 or n<0){
-            std::cout << "Write n>0 and k<10000" << std::endl;
-        }
-            if(n < k){
-                for(n; n <= k; n++){
-                        std::cout<< n << " ";
-                    }                  
-                }
-            
-            else if(n == k){
-                std::cout<<"Error, n = k "<<std::endl;
 
-            }
+bool isPrime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i*i<= n; i++) {
+        if (n % i == 0) return false;
     }
-    else{
-        std::cout<<"Not found 2 arguments"<<std::endl;
+    return true;
+}
+
+int main(int argc, char* argv[]) {
+    if (argc != 3) {
+        std::cerr << "Ошибка: Вы должны указать два аргумента." << std::endl;     
     }
     
+    int n = std::stoi(argv[1]);
+    int k = std::stoi(argv[2]);
+
+    if (n < 0 || k > 10000) {
+        std::cerr << "Ошибка: n должен быть >= 0 и k должен быть <= 10000." << std::endl;
+        return 1;
+    }
+
+    for (int i = n; i <= k; i++) {
+        if (isPrime(i)) {
+            std::cout << i << " ";
+        }
+    }
+    std::cout << std::endl;
 }
